@@ -1,0 +1,2 @@
+1. DATASET="movierationales" 으로 명명
+2. csvtojson.py 활용해서 train.csv -> train.json, validation.csv -> dev.json

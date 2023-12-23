@@ -1,0 +1,31 @@
+
+sst2 : 67349 / 872
+tweetevalsentiment : 45615 / 2000
+imdb : 40000 / 5000
+
+restaurant : 2023 / 606
+laptop : 1492 / 422
+movierationales : 1600 / 200
+
+snli : 549367 / 9842
+mnli : 392707 / 9815
+qnli : 104743 / 5463
+
+ethicsdeontology : 18164 / 3596
+ethicsjustice : 21791 / 2704
+
+qqp : 363846 / 40430
+mrpc : 3962 / 1650
+
+
+
+stsb : 5749 / 1500
+re : x
+anli : x
+rte : 2490 / 277
+wnli : 635 / 71
+
+
+
+
+

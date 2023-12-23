@@ -1,0 +1,32 @@
+1. IMDB: https://www.kaggle.com/datasets/columbine/imdb-dataset-sentiment-analysis-in-csv-format
+2. 위의 url에서 csv 파일 다운 후 data/IMDB에 저장
+3. 파일 이름 변경: Train.csv -> train.csv, Test.csv -> test.csv, Valid.csv -> dev.csv 
+4. IMDBDataset.py 수정
+
+class IMDBDataset(Dataset):
+    def __init__(self, config, mode, encoding="utf8", *args, **params):
+        self.config = config
+        self.mode = mode
+        self.data_path = config.get("data", "%s_data_path" % mode)
+        self.encoding = encoding
+
+        fin = csv.reader(open(self.data_path, "r"), delimiter=",", quotechar='"')
+
+
+        data = [row for row in fin]
+        label_map = {"positive":1, "negative":0}
+        if mode == "test":
+            self.data = [{"sent": ins[0].strip()} for ins in data]
+        else:
+            # self.data = [{"sent": ins[0].strip(), "label":label_map[ins[1].strip()]} for ins in data]
+            self.data = [{"sent": ins[0].strip(), "label": int(ins[1].strip())} for ins in data[1:]]
+            # print(self.data)
+            #exit()
+        print(self.mode, "the number of data", len(self.data))
+        # from IPython import embed; embed()
+
+    def __getitem__(self, item):
+        return self.data[item]
+
+    def __len__(self):
+        return len(self.data)

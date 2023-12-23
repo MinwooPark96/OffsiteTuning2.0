@@ -1,0 +1,52 @@
+1. directory: tweeteval/sentiment
+2. huggingfacetojson.py로 데이터셋 다운
+3. tweetevalsentimentDataset.py 수정
+class tweetevalsentimentDataset(Dataset):
+    def __init__(self, config, mode, encoding="utf8", *args, **params):
+        self.config = config
+        self.mode = mode
+        self.data_path = config.get("data", "%s_data_path" % mode)
+        #self.data_path = config.get("data", "train_data_path")
+        data = []
+        with open(self.data_path, 'r') as f:
+            for line in f:
+                data.append(json.loads(line))
+
+        '''
+        self.data = []
+        for rel in data:
+            if mode == "train":
+                inses = data[rel][:int(len(data[rel]) * 0.8)]
+            else:
+                inses = data[rel][int(len(data[rel]) * 0.8):]
+            for ins in inses:
+                ins["label"] = rel
+                self.data.append(ins)
+        '''
+
+        '''
+        for line in data:
+            print(line)
+        print("===")
+        print(len(data))
+        exit()
+        '''
+
+        emo_dict={"positive":2,"neutral":1,"negative":0,}
+        #emo_dict={"positive":0,"neutral":1,"negative":2}
+
+        if mode == "test":
+            self.data = [{"sent": ins['text'].strip()} for ins in data]
+        elif mode == 'valid':
+            self.data = [{"sent": ins['text'].strip(), "label": int(ins['label'])} for ins in data]
+        else:
+            self.data = [{"sent": ins['text'].strip(), "label": int(ins['label'])} for ins in data]
+        print(self.mode, "the number of data", len(self.data))
+
+
+
+    def __getitem__(self, item):
+        return self.data[item]
+
+    def __len__(self):
+        return len(self.data)

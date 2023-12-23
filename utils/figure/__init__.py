@@ -1,0 +1,7 @@
+import drawplot_epoch_acc
+import drawplot_epoch_loss
+import drawplot_train_loss
+import drawplot_valid_acc
+import drawplot_valid_loss
+
+
